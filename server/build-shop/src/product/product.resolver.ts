@@ -24,14 +24,19 @@ export class ProductResolver {
   findOne(@Args('id') id: string) {
     return this.productService.findOne(id);
   }
+  @Query(() => [Product])
+  getProductsByOwner(@Args('ownerId') ownerId: string): Promise<Product[]> {
+    return this.productService.findByOwner(ownerId);
+  }
 
   @Mutation(() => Product)
   updateProduct(
-    @Args('id') id: string,
-    @Args('updateProductInput')
-    updateProductInput: UpdateProductInput,
+    @Args('updateProductInput') updateProductInput: UpdateProductInput,
   ) {
-    return this.productService.update(id, updateProductInput);
+    return this.productService.update(
+      updateProductInput.id,
+      updateProductInput,
+    );
   }
 
   @Mutation(() => Product)

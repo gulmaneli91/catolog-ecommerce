@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreateCategoryInput {
@@ -12,7 +12,7 @@ export class CreateCategoryInput {
   description?: string;
 
   @Field()
-  @IsUUID()
+  @IsEmail()
   @IsNotEmpty()
-  ownerId: string;
+  email: string;
 }

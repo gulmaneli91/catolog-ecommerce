@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   Args,
   Parent,
@@ -34,10 +31,14 @@ export class OwnerResolver {
   getOwner(@Args('id') id: string) {
     return this.ownerService.findOne(id);
   }
+  @Query(() => Owner)
+  getOwnerByEmail(@Args('email') email: string) {
+    return this.ownerService.findOne(email);
+  }
 
   @ResolveField('categories', () => [Category])
   async getCategories(@Parent() owner: Owner): Promise<Category[]> {
-    this.logger.debug(`fetching categories for owner with ID: ${owner.id}`);
+    this.logger.debug(`fetching categories for owner's name: ${owner.name}`);
     return owner.categories;
   }
 

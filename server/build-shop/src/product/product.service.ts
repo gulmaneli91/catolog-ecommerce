@@ -33,6 +33,13 @@ export class ProductService {
     return await this.productRepo.findOneByOrFail({ id });
   }
 
+  async findByOwner(ownerId: string): Promise<Product[]> {
+    return this.productRepo.find({
+      where: { owner: { id: ownerId } },
+      relations: ['owner', 'category'],
+    });
+  }
+
   async update(id: string, updateProductInput: UpdateProductInput) {
     const product = await this.productRepo.findOneByOrFail({ id });
     return await this.productRepo.save(

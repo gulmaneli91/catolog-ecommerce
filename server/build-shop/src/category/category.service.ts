@@ -1,20 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Injectable } from '@nestjs/common';
 import { CreateCategoryInput } from './dto/create-category.input';
 import { UpdateCategoryInput } from './dto/update-category.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Category } from './entities/category.entity';
+import { Owner } from 'src/owner/entities/owner.entity';
 
 @Injectable()
 export class CategoryService {
   constructor(
     @InjectRepository(Category)
     private readonly categoryRepo: Repository<Category>,
+    @InjectRepository(Owner)
+    private readonly ownerRepo: Repository<Owner>,
   ) {}
 
   async create(createCategoryInput: CreateCategoryInput) {
-    const newCategory = this.categoryRepo.create(createCategoryInput);
+    const owner = await this.ownerRepo.findOneByOrFail({
+      email: createCategoryInput.email,
+    });
+
+    const newCategory = this.categoryRepo.create({
+      title: createCategoryInput.title,
+      description: createCategoryInput.description,
+      ownerId: owner.id,
+    });
     return await this.categoryRepo.save(newCategory);
   }
   // find all  needs ownerid
