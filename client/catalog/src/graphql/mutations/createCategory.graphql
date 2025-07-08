@@ -1,0 +1,11 @@
+mutation CreateCategory($createCategoryInput: CreateCategoryInput!) {
+  createCategory(createCategoryInput: $createCategoryInput) {
+    id
+    title
+    owner {
+      id
+      name
+      email
+    }
+  }
+}

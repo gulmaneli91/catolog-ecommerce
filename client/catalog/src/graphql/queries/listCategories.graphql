@@ -1,0 +1,12 @@
+query {
+  owners {
+    id
+    name
+    categories {
+      id
+      title
+      description
+    }
+  }
+}
+

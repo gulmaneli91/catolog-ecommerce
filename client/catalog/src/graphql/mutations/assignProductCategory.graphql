@@ -1,0 +1,10 @@
+mutation AssignProductCategory($id: String!, $updateProductInput: UpdateProductInput!) {
+  updateProduct(id: $id, updateProductInput: $updateProductInput) {
+    id
+    title
+    category {
+      id
+      title
+    }
+  }
+}

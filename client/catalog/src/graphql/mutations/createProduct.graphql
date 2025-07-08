@@ -1,0 +1,16 @@
+mutation CreateProduct($createProductInput: CreateProductInput!) {
+  createProduct(createProductInput: $createProductInput) {
+    id
+    title
+    price
+    owner {
+      id
+      name
+      email
+    }
+    category {
+      id
+      title
+    }
+  }
+}

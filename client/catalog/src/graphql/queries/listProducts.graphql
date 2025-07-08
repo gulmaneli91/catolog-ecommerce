@@ -1,0 +1,17 @@
+query {
+  owners {
+    id
+    name
+    email
+    products {
+      id
+      title
+      price
+      stock
+      category {
+        id
+        title
+      }
+    }
+  }
+}
